@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { OrderService } from './order.service';
 import OrderCoordinate from '@/order/dto/orderCoordinate.dto';
 import { Response } from 'express';
+import { Order } from './order.entity';
 
 @Controller('/')
 @ApiTags("Order Controller")
@@ -12,7 +13,7 @@ export class OrderController {
     @ApiOperation({ description: "Post Order Here"})
     @Post()
     async postOrder(@Res() res: Response, @Body() orderCoordinate: OrderCoordinate) {
-        const order = await this.orderService.createOrder(orderCoordinate);
+        const order : Order = await this.orderService.createOrder(orderCoordinate);
         return res.status(HttpStatus.OK).json(order)
     }
 }

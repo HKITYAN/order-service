@@ -21,10 +21,15 @@ export class GloablExceptionFilter implements ExceptionFilter {
         status = HttpStatus.BAD_REQUEST;
         errorMessage = exception.message;
         info = exception.errMsgList
-
+    } else {
+      status = HttpStatus.INTERNAL_SERVER_ERROR;
+      errorMessage = "INTERNAL_SERVER_ERROR"
     }
-    this.logger.error(exception.message, exception?.stack);
 
-    response.status(status).json({ error: errorMessage, info });
+    if (info == null) {
+      response.status(status).json({ error: errorMessage });
+    } else {
+      response.status(status).json({ error: errorMessage, info })
+    }
   }
 }

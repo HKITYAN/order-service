@@ -12,9 +12,9 @@ import { MapModule } from './map/map.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     RouterModule.forRoutes(routeConfig),
-    // TypeOrmModule.forRootAsync({
-    //   useClass: DataBaseConfigFactory
-    // }),
+    TypeOrmModule.forRootAsync({
+      useClass: DataBaseConfigFactory
+    }),
     HttpModule.register({
       timeout: 10000,
       maxRedirects: 5,
