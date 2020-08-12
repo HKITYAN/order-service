@@ -3,6 +3,7 @@ import { isLatitude, isLongitude, registerDecorator, ValidatorConstraintInterfac
 @ValidatorConstraint()
 export class LatLongConstraint implements ValidatorConstraintInterface {
     validate(latLongArray: string[], args: ValidationArguments): boolean {
+        if (latLongArray?.length !== 2) return false
         const isLat = isLatitude(latLongArray[0]);
         const isLong = isLongitude(latLongArray[1]);
         return isLat && isLong;
