@@ -5,9 +5,34 @@
 * to start built application, run `./start.sh`.
 * for local development run `./start.sh -d`
 
-## Swagger for API testing
+## APIs 
 
-You can go to [swagger](http://localhost:8080/swagger) for API testings
+* You can go to [swagger](http://localhost:8080/swagger) for API testings
+* @Get /orders/orders?page=:page&limit=:limit => order by createdDate in descending order
+* for validation error, one extra field info will be added for showing actual validation issue
+```
+{
+  "error": "VALIDATION_ERROR",
+  "info": [
+    {
+      "field": "origin",
+      "violations": {
+        "LatLongConstraint": "Coordiante format incorrect"
+      }
+    },
+    {
+      "field": "destination",
+      "violations": {
+        "LatLongConstraint": "Coordiante format incorrect",
+        "arrayMinSize": "destination must contain at least 2 elements"
+      }
+    }
+  ]
+}
+```
+
+
+
 
 ## Google API key
 

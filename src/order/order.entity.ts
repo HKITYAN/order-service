@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, VersionColumn, CreateDateColumn } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, VersionColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { Status } from "@/order/enum/status.enum";
 import { Exclude } from "class-transformer";
 
@@ -20,6 +20,10 @@ export class Order {
     @CreateDateColumn()
     @Exclude()
     createdDate: Date
+
+    @UpdateDateColumn()
+    @Exclude()
+    updatedDate: Date
 
     constructor(status: Status, distance: number) {
         this.status = status;

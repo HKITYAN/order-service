@@ -19,6 +19,7 @@ export class OrderService {
     private readonly logger = new Logger(OrderService.name);
 
     createOrder = async (orderCoordinates: OrderCoordinate) : Promise<Order> => {
+        this.logger.log("Creating order...")
         const origin = `${orderCoordinates.origin[0]},${orderCoordinates.origin[1]}`
         const destination = `${orderCoordinates.destination[0]},${orderCoordinates.destination[1]}`
         const distance : number = await this.mapService.getDistance(origin, destination);
@@ -33,10 +34,10 @@ export class OrderService {
     }
 
     takeOrder = async (id: string) : Promise<UpdateStatus> => {
-        const order : Order = await this.orderRepository.findOne(id);
-
-        
         this.logger.log(`Taking order(${id})...`)
+        
+        const order : Order = await this.orderRepository.findOne(id);
+        
         
         if (order.status === Status.TAKEN) throw new HttpException("ORDER_ALREADY_TAKEN", HttpStatus.FORBIDDEN)
 
@@ -45,16 +46,15 @@ export class OrderService {
         if (result.affected === 0) throw new HttpException("ORDER_ALREADY_TAKEN", HttpStatus.FORBIDDEN) 
 
         
-        this.logger.log(`Successfully took order(${id})`)
+        this.logger.log(`Successfully taken order(${id})`)
 
         return { status: "SUCCESS" }
 
     }
 
     listOrder = async (page: number, limit: number) : Promise<Order[]>=> {
+        this.logger.log("Retrieving orders ...")
         const offset : number = (page - 1) * limit;
-        const total = await this.orderRepository.find();
-        console.log(total)
         const orderList : Order[] = await this.orderRepository.find({
             order: {
                 createdDate: "DESC"
@@ -63,6 +63,7 @@ export class OrderService {
             take: limit
 
         })
+        this.logger.log(`Total order retreived: ${orderList.length}`)
         return orderList;
     }
 
