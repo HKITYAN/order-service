@@ -5,12 +5,13 @@
 * to start built application, run `./start.sh`.
 * for local development run `./start.sh -d`
 
-## APIs 
+## APIs
 
 * You can go to [swagger](http://localhost:8080/swagger) for API testings
 * @Get /orders/orders?page=:page&limit=:limit => order by createdDate in descending order
 * for validation error, one extra field info will be added for showing actual validation issue
-```
+
+```json
 {
   "error": "VALIDATION_ERROR",
   "info": [
@@ -30,9 +31,6 @@
   ]
 }
 ```
-
-
-
 
 ## Google API key
 

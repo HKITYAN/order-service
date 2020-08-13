@@ -27,7 +27,7 @@ export class OrderService {
             this.logger.error("Order create failed, no distance obtained")
             throw new HttpException("FAIL_TO_GET_DISTANCE", HttpStatus.INTERNAL_SERVER_ERROR)
         }
-        const newOrder : Order = new Order(Status.UNASSIGNED, 100)
+        const newOrder : Order = new Order(Status.UNASSIGNED, distance)
         const savedOrder : Order = await this.orderRepository.save(newOrder);
         this.logger.log(`Created order(${savedOrder.id}) successfully, current status ${savedOrder.status}`)
         return savedOrder;
@@ -38,7 +38,7 @@ export class OrderService {
         
         const order : Order = await this.orderRepository.findOne(id);
         
-        
+        if (!order) throw new HttpException("ORDER_NOT_FOUND", HttpStatus.NOT_FOUND)
         if (order.status === Status.TAKEN) throw new HttpException("ORDER_ALREADY_TAKEN", HttpStatus.FORBIDDEN)
 
         // checking version before update to prevent concurrent access issue
