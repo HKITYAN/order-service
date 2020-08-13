@@ -8,8 +8,8 @@ import { OrderId } from './dto/orderId.dto';
 import { Pagination } from './dto/pagination.dto';
 import { UpdateStatus } from './dto/updateStatus.dto';
 
-@Controller('/')
 @UseInterceptors(ClassSerializerInterceptor)
+@Controller('/')
 @ApiTags("Order Controller")
 export class OrderController {
     constructor(private readonly orderService: OrderService) {}
