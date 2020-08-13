@@ -22,7 +22,7 @@ describe('OrderService', () => {
     version: 0
   } as Order;
 
-  const takeOrder : Order = {
+  const takenOrder : Order = {
     id: "c22a7249-f252-4dee-9cbc-735bac0f79b2",
     status: Status.TAKEN,
     createdDate: new Date(),
@@ -82,7 +82,7 @@ describe('OrderService', () => {
 
     const findOne = (id) => {
       if (id === unassingedOrderId) return Promise.resolve(unassignedOrder)
-      if (id === takenOrderId) return Promise.resolve(takeOrder)
+      if (id === takenOrderId) return Promise.resolve(takenOrder)
       return null;
     }
     
@@ -104,6 +104,18 @@ describe('OrderService', () => {
       const httpException = new HttpException("ORDER_ALREADY_TAKEN", HttpStatus.FORBIDDEN)
       jest.spyOn(orderRepo, "findOne").mockImplementation(findOne)
       await expect(orderService.takeOrder(takenOrderId)).rejects.toThrow(httpException);
+    })
+  })
+
+  describe("listOrder functionality test", () => {
+    it ("able to list order when there exists orders", async () => {
+      jest.spyOn(orderRepo, "find").mockImplementation(() => Promise.resolve([takenOrder, unassignedOrder]))
+      expect(await orderService.listOrder(1, 1)).toEqual(expect.arrayContaining([takenOrder, unassignedOrder]))
+    })
+
+    it ("able to return empty array when there are no orders", async () => {
+      jest.spyOn(orderRepo, "find").mockImplementation(() => Promise.resolve([]))
+      expect(await orderService.listOrder(1, 1)).toEqual(expect.arrayContaining([]))
     })
   })
 });
