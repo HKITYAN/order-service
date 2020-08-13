@@ -1,27 +1,40 @@
-import { Controller, Post, Body, Res, HttpStatus, Patch, Param } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Patch, Param, Get, Query, UseInterceptors, ClassSerializerInterceptor, HttpCode } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { OrderService } from './order.service';
 import OrderCoordinate from '@/order/dto/orderCoordinate.dto';
 import { Response } from 'express';
 import { Order } from './order.entity';
 import { OrderId } from './dto/orderId.dto';
+import { Pagination } from './dto/pagination.dto';
+import { UpdateStatus } from './dto/updateStatus.dto';
 
 @Controller('/')
+@UseInterceptors(ClassSerializerInterceptor)
 @ApiTags("Order Controller")
 export class OrderController {
     constructor(private readonly orderService: OrderService) {}
 
     @ApiOperation({ description: "Create an order"})
+    @HttpCode(HttpStatus.OK) // overwrite default code 201 to 200, according to requirement
     @Post()
-    async createOrder(@Res() res: Response, @Body() orderCoordinate: OrderCoordinate) {
+    async createOrder(@Body() orderCoordinate: OrderCoordinate) {
         const order : Order = await this.orderService.createOrder(orderCoordinate);
-        return res.status(HttpStatus.OK).json(order)
+        return order;
     }
 
     @ApiOperation({ description: "Take an order" })
     @Patch("/:id")
-    async takeOrder(@Res() res: Response,  @Param() { id }: OrderId) {
-        await this.orderService.takeOrder(id);
-        return res.status(HttpStatus.OK).json()
+    async takeOrder(@Param() { id }: OrderId, @Body() { status } : UpdateStatus) {
+        const takeOrderResult : UpdateStatus = await this.orderService.takeOrder(id);
+        return takeOrderResult;
+    }
+
+    @ApiOperation({ description: "Get order list"})
+    @Get()
+    async getOrderList(@Query() pagination: Pagination) {
+        const page : number = parseInt(pagination.page)
+        const limit : number = parseInt(pagination.limit)
+        const orderList : Order[] = await this.orderService.listOrder(page, limit)
+        return orderList;
     }
 }

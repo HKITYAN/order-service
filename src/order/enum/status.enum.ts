@@ -1,5 +1,4 @@
-export enum OrderStatus {
-    SUCCESS = "SUCCESS",
+export enum Status {
     UNASSIGNED = "UNASSIGNED",
     TAKEN = "TAKEN"
 }

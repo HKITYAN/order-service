@@ -10,12 +10,13 @@ export class LatLongConstraint implements ValidatorConstraintInterface {
     }
     
     defaultMessage(args: ValidationArguments): string {
-    return `${args.property} field coordiante format is not in correct format`;
+    return `Coordiante format incorrect`;
     }
 }
 export function IsLatLongArray(validationOptions?: ValidationOptions) {
     return function(object: Record<string, any>, propertyName: string): void {
         registerDecorator({
+          name: "coordinateFormat",
           target: object.constructor,
           propertyName: propertyName,
           options: validationOptions,
