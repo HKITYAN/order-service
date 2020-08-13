@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { OrderService } from './order.service';
 import { MapService } from '@/map/map.service';
 import { MapServiceMock } from '@/map/map.mock.spec';
-import { getRepository, Repository, UpdateResult } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Order } from './order.entity';
 import OrderCoordinate from './dto/orderCoordinate.dto';
@@ -23,7 +23,7 @@ describe('OrderService', () => {
   } as Order;
 
   const takenOrder : Order = {
-    id: "c22a7249-f252-4dee-9cbc-735bac0f79b2",
+    id: "7e0f39f4-74d2-4a4e-b934-cfbc379f5578",
     status: Status.TAKEN,
     createdDate: new Date(),
     updatedDate: new Date(),
@@ -49,7 +49,7 @@ describe('OrderService', () => {
     orderRepo = module.get<Repository<Order>>(getRepositoryToken(Order));
   });
 
-  it('should be defined', () => {
+  it('order service should be defined', () => {
     expect(orderService).toBeDefined();
   });
 
@@ -75,8 +75,8 @@ describe('OrderService', () => {
       try {
         expect(await orderService.createOrder(input)).toBe(unassignedOrder);
       } catch(exception) {
-        const httpException : HttpException = new HttpException("FAIL_TO_GET_DISTANCE", HttpStatus.INTERNAL_SERVER_ERROR)
-        expect(exception).toMatchObject(httpException)
+        const failToGetDistanceException : HttpException = new HttpException("FAIL_TO_GET_DISTANCE", HttpStatus.INTERNAL_SERVER_ERROR)
+        expect(exception).toEqual(failToGetDistanceException)
       }
     })
   });
@@ -102,20 +102,21 @@ describe('OrderService', () => {
       jest.spyOn(orderRepo, "findOne").mockImplementation(findOne)
       jest.spyOn(orderRepo, "update").mockImplementation(() => Promise.resolve({ affected: 1 } as UpdateResult))
       
+      expect.assertions(1);
       try {
-        expect(await orderService.takeOrder(input)).toMatchObject(successResponse);
+        expect(await orderService.takeOrder(input)).toEqual(successResponse);
       } catch(exception) {
         const orderTakenException = new HttpException("ORDER_ALREADY_TAKEN", HttpStatus.FORBIDDEN)
         const orderNotFoundException = new HttpException("ORDER_NOT_FOUND", HttpStatus.NOT_FOUND)
         switch(input) {
-          case takenOrderId:
-            expect(exception).toMatchObject(orderTakenException)
+          case "7e0f39f4-74d2-4a4e-b934-cfbc379f5578":
+            expect(exception).toEqual(orderTakenException)
             break
-          case fakeOrderId:
-            expect(exception).toMatchObject(orderNotFoundException)
+          case "xxxx-xxxx-xxx":
+            expect(exception).toEqual(orderNotFoundException)
             break
           default:
-            expect(exception).toMatchObject(orderNotFoundException) 
+            expect(exception).toEqual(orderNotFoundException) 
         }
           
         
@@ -123,15 +124,15 @@ describe('OrderService', () => {
     })
   })
 
-  describe("listOrder functionality test", () => {
+  describe("list order functionality test", () => {
     it ("listOrder => list order when there exists orders", async () => {
       jest.spyOn(orderRepo, "find").mockImplementation(() => Promise.resolve([takenOrder, unassignedOrder]))
-      expect(await orderService.listOrder(1, 1)).toEqual(expect.arrayContaining([takenOrder, unassignedOrder]))
+      expect((await orderService.listOrder(1, 1)).sort()).toEqual([takenOrder, unassignedOrder].sort())
     })
 
     it ("listOrder => return empty array when there are no orders", async () => {
       jest.spyOn(orderRepo, "find").mockImplementation(() => Promise.resolve([]))
-      expect(await orderService.listOrder(1, 1)).toEqual(expect.arrayContaining([]))
+      expect(await orderService.listOrder(1, 1)).toEqual([])
     })
   })
 });

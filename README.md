@@ -37,6 +37,11 @@
 To use google api, put the api key to environemtn variable `MAP_SERVICE_KEY`, like
 `MAP_SERVICE_KEY=YOUR_GOOGLE_API_KEY`
 
+## Testing
+
+* unit tests will be focus on orderService
+* controller service basically just call orderService, will only test happy cases
+
 ## Special notes for development
 
 when you start the application using `./start.sh -d`, you can get the change

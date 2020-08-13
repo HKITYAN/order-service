@@ -24,7 +24,6 @@ export class OrderService {
         const destination = `${orderCoordinates.destination[0]},${orderCoordinates.destination[1]}`
         const distance : number = await this.mapService.getDistance(origin, destination);
         if (distance === null) {
-            this.logger.error("Order create failed, no distance obtained")
             throw new HttpException("FAIL_TO_GET_DISTANCE", HttpStatus.INTERNAL_SERVER_ERROR)
         }
         const newOrder : Order = new Order(Status.UNASSIGNED, distance)
