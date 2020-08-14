@@ -46,8 +46,7 @@ To use google api, put the api key to environemtn variable `MAP_SERVICE_KEY`, li
 ## End to End testing
 
 * to run e2e test, make make sure you have start the application
-* use `docker exec -it order-service-dev npm run test:e2e` (when using `./start.sh -d`)
-or `docker exec -it order-service npm run test:e2e` (when using `./start.sh`)
+* use `docker exec -it order-service npm run test:e2e` (and use `./start.sh` to start the application, because initial data is prepared)
 
 ## CICD
 
