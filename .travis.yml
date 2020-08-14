@@ -4,6 +4,7 @@ services:
 
 before_install:
   - docker-compose up -d
+  - docker ps
   - docker exec -i mysql-service mysql -u root -psecretpassword order_delivery < test_data.sql
 
 script:
