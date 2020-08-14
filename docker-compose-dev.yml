@@ -20,7 +20,7 @@ services:
     container_name: mysql-service-dev
     environment:
       - MYSQL_ROOT_PASSWORD=secretpassword
-      - MYSQL_DATABASE=orderdelivery
+      - MYSQL_DATABASE=order_delivery
     volumes:
       - orderdb:/var/lib/orderdb
     ports:
