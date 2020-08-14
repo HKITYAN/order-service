@@ -30,6 +30,7 @@
         {
             "name": "order-service",
             "image": "hkityan/order-service",
+            "command": ["node", "dist/main.js"],
             "hostname": "order-service",
             "essential": false,
             "portMappings": [
