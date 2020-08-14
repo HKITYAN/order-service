@@ -1,0 +1,25 @@
+version: "3.1"
+services:
+  order-service:
+    build:
+      context: .
+    image: hkityan/order-service
+    container_name: order-service
+    ports:
+      - 8080:8080
+    command: ["node", "dist/main.js"]
+    depends_on:
+      - mysql-service
+  mysql-service:
+    image: mysql:5.7.30
+    restart: always
+    container_name: mysql-service
+    environment: # environment variable will be store in building machine
+      MYSQL_ROOT_PASSWORD: secretpassword
+      MYSQL_DATABASE: order_delivery
+    volumes:
+      - orderdb:/var/lib/orderdb
+    ports:
+      - 3307:3306 # allow db client to connect to mysql
+volumes:
+  orderdb:
