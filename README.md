@@ -39,11 +39,15 @@ To use google api, put the api key to environemtn variable `MAP_SERVICE_KEY`, li
 
 ## Unit Testing
 
-* run test using command `npm run test`
+* run unit test using command `npm run test`
 * unit tests will be focus on orderService
 * controller service basically just call orderService, will only test happy flow
 
 ## End to End testing
+
+* to run e2e test, make make sure you have start the application
+* use `docker exec -it order-service-dev npm run test:e2e` (when using `./start.sh -d`)
+or `docker exec -it order-service npm run test:e2e` (when using `./start.sh`)
 
 // TODO
 
