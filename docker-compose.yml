@@ -14,7 +14,7 @@ services:
     image: mysql:5.7.30
     restart: always
     container_name: mysql-service
-    environment: # environment variable will be store in building machine
+    environment: # in production, environment variables will be store in instance
       MYSQL_ROOT_PASSWORD: secretpassword
       MYSQL_DATABASE: order_delivery
     volumes:
