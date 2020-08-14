@@ -23,7 +23,7 @@ deploy:
   provider: elasticbeanstalk
   region: ap-south-1
   app: order-service
-  env: OrderService-env
+  env: OrderService-env-1
   bucket_name: elasticbeanstalk-ap-south-1-203818373774
   bucket_path: order-service
   on:
