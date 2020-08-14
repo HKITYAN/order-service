@@ -19,6 +19,7 @@ services:
       MYSQL_DATABASE: order_delivery
     volumes:
       - orderdb:/var/lib/orderdb
+      - ./sql:/docker-entrypoint-initdb.d
     ports:
       - 3307:3306 # allow db client to connect to mysql
 volumes:
