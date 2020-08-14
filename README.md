@@ -49,6 +49,14 @@ To use google api, put the api key to environemtn variable `MAP_SERVICE_KEY`, li
 * use `docker exec -it order-service-dev npm run test:e2e` (when using `./start.sh -d`)
 or `docker exec -it order-service npm run test:e2e` (when using `./start.sh`)
 
+## CICD
+
+* pull request from feature -> master will triger Travis CI build
+* Travis CI will do both Unit testing & e2e testing, but skip deployment
+* then reviewer merge pull reguest to master
+* Travis will run testing again and if pass, push the order-service image to docker hub
+* Finally it will inform AWS Elastic Beanstalk to pull image from docker hub and build for production
+* Demo can be shown from loacl commit on actual aws production
 
 ## Special notes for development
 

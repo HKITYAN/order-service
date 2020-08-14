@@ -10,11 +10,11 @@ export class DataBaseConfigFactory implements TypeOrmOptionsFactory {
     createTypeOrmOptions() : TypeOrmModuleOptions {
         return {
             type: 'mysql',
-            host: this.configService.get("HOST"),
-            port: this.configService.get("PORT"),
-            username: this.configService.get("USERNAME"),
-            password: this.configService.get("PASSWORD"),
-            database: this.configService.get("DATABASE"),
+            host: this.configService.get("RDS_HOSTNAME"),
+            port: this.configService.get("RDS_PORT"),
+            username: this.configService.get("RDS_USERNAME"),
+            password: this.configService.get("RDS_PASSWORD"),
+            database: this.configService.get("RDS_DB_NAME"),
             entities: [Order],
             cache: true,
             keepConnectionAlive: true,
