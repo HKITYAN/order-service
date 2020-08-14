@@ -19,15 +19,15 @@ after_success:
    - docker images
    - docker push hkityan/order-service
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: ap-south-1
-#   app: order-service
-#   env: OrderService-env
-#   bucket_name: elasticbeanstalk-ap-south-1-203818373774
-#   bucket_path: order-service
-#   on:
-#     branch: master
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  region: ap-south-1
+  app: order-service
+  env: OrderService-env
+  bucket_name: elasticbeanstalk-ap-south-1-203818373774
+  bucket_path: order-service
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
 
