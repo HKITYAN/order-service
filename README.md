@@ -49,7 +49,6 @@ To use google api, put the api key to environemtn variable `MAP_SERVICE_KEY`, li
 * use `docker exec -it order-service-dev npm run test:e2e` (when using `./start.sh -d`)
 or `docker exec -it order-service npm run test:e2e` (when using `./start.sh`)
 
-// TODO
 
 ## Special notes for development
 
