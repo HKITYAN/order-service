@@ -59,6 +59,7 @@ To use google api, put the api key to environemtn variable `MAP_SERVICE_KEY`, li
 
 ## Special notes for development
 
-when you start the application using `./start.sh -d`, you can get the change
+* when you start the application using `./start.sh -d`, you can get the change
 reflected automatically. But you may see some message like `[Note] Aborted connection XX to db`,
 it is the order service try to reconnect to mysql-service, please wait for a moment.
+* use `docker-compse down` to turn off the connection

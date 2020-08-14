@@ -8,22 +8,20 @@ services:
     ports:
       - 8080:8080
     command: ["npm", "run", "start:dev"]
-    # allow watching local directory for continous update
     volumes:
-      - /order-service/node_modules
-      - .:/order-service
+      - ./src:/order-service/src
     depends_on:
       - mysql-service
   mysql-service:
     image: mysql:5.7.30
     restart: always
     container_name: mysql-service-dev
-    environment:
-      - MYSQL_ROOT_PASSWORD=secretpassword
-      - MYSQL_DATABASE=order_delivery
+    environment: # in production, environment variables will be store in instance
+      MYSQL_ROOT_PASSWORD: secretpassword
+      MYSQL_DATABASE: order_delivery
     volumes:
-      - orderdb:/var/lib/orderdb
+      - orderdbdev:/var/lib/orderdbdev
     ports:
       - 3307:3306 # allow db client to connect to mysql
 volumes:
-  orderdb:
+  orderdbdev:
