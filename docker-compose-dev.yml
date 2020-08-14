@@ -19,8 +19,8 @@ services:
     restart: always
     container_name: mysql-service-dev
     environment:
-      - MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD=secretpassword
+      - MYSQL_DATABASE=orderdelivery
     volumes:
       - orderdb:/var/lib/orderdb
     ports:
