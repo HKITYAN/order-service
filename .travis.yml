@@ -13,6 +13,7 @@ script:
 
 after_success:
    - echo "$DOCKER_HUB_PW" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+   - docker images
    - docker push hkityan/order-service
 
 # deploy:
