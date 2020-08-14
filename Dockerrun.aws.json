@@ -1,0 +1,58 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "portainer",
+            "portMappings": [
+              {
+                "hostPort": 9000,
+                "protocol": "tcp",
+                "containerPort": 9000
+              }
+            ],
+            "mountPoints": [
+              {
+                "readOnly": null,
+                "containerPath": "/data",
+                "sourceVolume": "data"
+              },
+              {
+                "readOnly": null,
+                "containerPath": "/var/run/docker.sock",
+                "sourceVolume": "sock"
+              }
+            ],
+            "memoryReservation": 100,
+            "image": "portainer/portainer",
+            "privileged": true,
+            "essential": true
+        },
+        {
+            "name": "order-service",
+            "image": "hkityan/order-service",
+            "hostname": "order-service",
+            "essential": false,
+            "portMappings": [
+              {
+                "hostPort": 80,
+                "containerPort": 8080
+              }
+            ],
+            "memory": 128
+        }
+    ],
+    "volumes": [
+        {
+          "name": "data",
+          "host": {
+            "sourcePath": "/app/portainer_data"
+          }
+        },
+        {
+          "name": "sock",
+          "host": {
+            "sourcePath": "/var/run/docker.sock"
+          }
+        }
+    ]
+}
