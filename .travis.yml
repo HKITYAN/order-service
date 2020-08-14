@@ -4,8 +4,8 @@ services:
 
 before_install:
   - docker-compose up -d
-  - service mysql status
-  - /etc/init.d/mysql start
+  - sudo service mysql status
+  - sudo service mysql start
   - docker exec -i mysql-service mysql -u root -psecretpassword
 
 script:
