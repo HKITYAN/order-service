@@ -1,9 +1,12 @@
 sudo: required
 services:
+  - docker
   - mysql
 
 before_install:
+  - docker-compose up -d
   - service mysql status
+  - docker exec -i mysql-service mysql -u root -psecretpassword
 
 script:
   - echo hi
