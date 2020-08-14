@@ -3,7 +3,7 @@ services:
   - mysql
 
 before_install:
-  - mysql status
+  - service mysql status
 
 script:
   - echo hi
