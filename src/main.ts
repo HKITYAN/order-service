@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { Swagger } from './swagger.module'
 import { ValidationPipe } from '@nestjs/common';
 import { GloablExceptionFilter } from '@/exception.filter';
-import { ValidationException } from 'ValidationException';
+import { ValidationException } from '@/validationException';
 
 async function bootstrap() {
   const app  = await NestFactory.create(AppModule);

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { validationErrorFlatMap } from 'utils/utils';
+import { validationErrorFlatMap } from '@/utils/utils';
 
 export class ValidationException {
   constructor(validationErrors: ValidationError[]) {

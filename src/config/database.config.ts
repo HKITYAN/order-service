@@ -17,6 +17,7 @@ export class DataBaseConfigFactory implements TypeOrmOptionsFactory {
             database: this.configService.get("DATABASE"),
             entities: [Order],
             cache: true,
+            keepConnectionAlive: true,
             synchronize: true
         }
     }
