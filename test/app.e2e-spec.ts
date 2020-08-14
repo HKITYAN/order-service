@@ -142,11 +142,8 @@ describe('Order Controller E2E test', () => {
 
 
   afterAll(async () => {
-    console.log("close app")
     const connection = getConnection()
-    console.log("Is connected: ", connection.isConnected)
     await connection.close()
     await app.close();
-    console.log("close app successfully")
   });
 });
