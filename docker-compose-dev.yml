@@ -20,7 +20,7 @@ services:
       MYSQL_ROOT_PASSWORD: secretpassword
       MYSQL_DATABASE: order_delivery
     volumes:
-      - orderdbdev:/var/lib/orderdbdev
+      - orderdbdev:/var/lib/mysql
     ports:
       - 3307:3306 # allow db client to connect to mysql
 volumes:

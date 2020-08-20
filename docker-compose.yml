@@ -18,7 +18,7 @@ services:
       MYSQL_ROOT_PASSWORD: secretpassword
       MYSQL_DATABASE: order_delivery
     volumes:
-      - orderdb:/var/lib/orderdb
+      - orderdb:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
     ports:
       - 3307:3306 # allow db client to connect to mysql
